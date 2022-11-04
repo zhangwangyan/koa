@@ -1,2 +1,6 @@
 # Project exclude paths
 /node_modules/
+/.idea/.gitignore
+/.idea/koa.iml
+/.idea/modules.xml
+/.idea/vcs.xml
