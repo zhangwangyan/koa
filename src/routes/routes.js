@@ -1,10 +1,9 @@
-const combineRoutes=require('koa-combine-routers')
+import combineRoutes  from 'koa-combine-routers'
 
 
-const aroutes=require('./arouter')
-const brouter=require('./brouter')
+import demoRouter  from './DemoRouter'
+
 
 module.exports=combineRoutes(
-    aroutes,
-    brouter
+    demoRouter
 )
