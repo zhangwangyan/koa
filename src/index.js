@@ -9,12 +9,26 @@ import helmet  from 'koa-helmet'
 import router from './routes/routes'
 import statics from 'koa-static'
 import path from 'path'
+import koaBody from "koa-body";
+import jsonnutil from 'koa-json'
+import cors from '@koa/cors'
+import compose from 'koa-compose'
 
 
 const app=new koa()
 console.log("=====启动成功")
-app.use(helmet())
-console.log(__dirname)
-app.use(statics(path.join(__dirname,'../public')))
+// app.use(helmet())
+// console.log(__dirname)
+// app.use(statics(path.join(__dirname,'../public')))
+// app.use(router())
+const middleware=compose([
+    koaBody(),
+    statics(path.join(__dirname,'../public')),
+    cors(),
+    jsonnutil({pretty:false,param:'pretty'}),
+    helmet()
+
+])
+app.use(middleware)
 app.use(router())
-app.listen(3000)
+app.listen(8000)
