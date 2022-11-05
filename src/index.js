@@ -16,6 +16,7 @@ import compose from 'koa-compose'
 
 
 const app=new koa()
+const isDevMode = process.env.NODE_ENV === 'production' ? false : true
 console.log("=====启动成功")
 // app.use(helmet())
 // console.log(__dirname)
@@ -29,6 +30,9 @@ const middleware=compose([
     helmet()
 
 ])
+if (!isDevMode) {
+    app.use(compress())
+}
 app.use(middleware)
 app.use(router())
 app.listen(3000)

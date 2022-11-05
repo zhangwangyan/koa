@@ -1,7 +1,7 @@
 import combineRoutes  from 'koa-combine-routers'
 
 
-import demoRouter  from './DemoRouter'
+import demoRouter  from './publicRouter'
 
 
 module.exports=combineRoutes(
