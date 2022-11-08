@@ -3,6 +3,6 @@ import  demoController from '../api/publicController'
 
 const router=new Router()
 
-router.get('/demo',demoController.getCaptcha)
+router.get('/getCaptcha',demoController.getCaptcha)
 
 module.exports=router

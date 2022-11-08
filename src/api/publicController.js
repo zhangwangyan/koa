@@ -11,7 +11,7 @@ class PublicController {
             color: true ,
             background: '#e2e8e6' ,
             width:150,
-            height:50
+            height:38
         })
         console.log(newCapcha)
         ctx.body={
