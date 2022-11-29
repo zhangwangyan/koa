@@ -1,9 +1,10 @@
 import  redis from 'redis'
 import { promisifyAll } from 'bluebird'
+import config from './index'
 const options={
-    host:'117.33.237.52',
-    port:15001,
-    password:'123456',
+    host:config.Redis.host,
+    port:config.Redis.port,
+    password:config.Redis.password,
     detect_buffers:true,
     retry_strategy: function (options) {
         if (options.error && options.error.code === 'ECONNREFUSED') {
@@ -24,11 +25,12 @@ const options={
         return Math.min(options.attempt * 100, 3000);
     }
 }
+
+const client = promisifyAll(redis.createClient(options))
 client.on('error', (err) => {
     console.log('Redis Client Error:' + err)
 })
 
-const client = promisifyAll(redis.createClient(options))
 const setValue=(key,value)=>{
     if(typeof value==='undefined'|| value===null ||value===''){
         return
