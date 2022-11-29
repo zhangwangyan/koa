@@ -1,5 +1,5 @@
 import  redis from 'redis'
-
+import { promisifyAll } from 'bluebird'
 const options={
     host:'117.33.237.52',
     port:15001,
@@ -24,9 +24,11 @@ const options={
         return Math.min(options.attempt * 100, 3000);
     }
 }
+client.on('error', (err) => {
+    console.log('Redis Client Error:' + err)
+})
 
-const client=redis.createClient(options)
-
+const client = promisifyAll(redis.createClient(options))
 const setValue=(key,value)=>{
     if(typeof value==='undefined'|| value===null ||value===''){
         return
@@ -40,19 +42,37 @@ const setValue=(key,value)=>{
     }
 }
 
-const {promisify}=require('util')
-const getAsync=promisify(client.get).bind(client)
-const getValue=(key)=>{
-    return getAsync(key)
+/// const {promisify} = require('util');
+// const getAsync = promisify(client.get).bind(client);
+
+const getValue = (key) => {
+    return client.getAsync(key)
 }
-const getHValue=(key)=>{
-    return promisify(client.hgetall).bind(client)(key)
+
+const getHValue = (key) => {
+    // v8 Promisify method use util, must node > 8
+    // return promisify(client.hgetall).bind(client)(key)
+
+    // bluebird async
+    return client.hgetallAsync(key)
 }
+
+const delValue = (key) => {
+    client.del(key, (err, res) => {
+        if (res === 1) {
+            console.log('delete successfully');
+        } else {
+            console.log('delete redis key error:' + err)
+        }
+    })
+}
+
 
 export {
     client,
     getValue,
     setValue,
-    getHValue
+    getHValue,
+    delValue
 }
 

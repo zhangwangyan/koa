@@ -1,4 +1,4 @@
-import {getHValue,getValue,setValue} from "./RdisConfig";
+import {delValue,getHValue,getValue,setValue} from "./RdisConfig";
 
 setValue('imooc','张王岩真帅')
 
@@ -9,3 +9,5 @@ setValue('zhangwangyan',{name:'brain',age:30 })
 getHValue('zhangwangyan').then((res)=>{
     console.log(res)
 })
+
+delValue()

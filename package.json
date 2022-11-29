@@ -29,7 +29,8 @@
       "svg-captcha": "^1.4.0",
       "mongoose": "^5.7.1",
       "saslprep": "^1.0.3",
-      "redis": "^2.8.0"
+      "redis": "^2.8.0",
+      "bluebird": "^3.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
