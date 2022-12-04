@@ -24,6 +24,13 @@ class LoginController{
           console.log(e)
        }
     }
+    async login(ctx){
+        //1、接收用户的数据
+        //2、验证图片验证码的时效性、正确性
+        //3、验证用户账号密码是否正确
+        //4、返回token
+    }
 }
+
 
 export default new LoginController()
